@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Ranking App</title>
+    <style>
+
+        body {
+            background-color: rgb(35, 36, 122);
+            color: white;
+        }
+
+        ul {
+            padding-left: 0px;
+        }
+        li {
+            background-color: rgb(79, 79, 119);
+            border-radius: 6px;
+            list-style-type: none;
+            padding: 6px;
+            width: 98%;
+            margin-bottom: 6px;
+            display: flex;
+            flex-direction: row;
+            max-height: 400px;
+        }
+        span {
+            min-width: 15%;
+            display: inline-block;
+            max-height: 50px;
+            overflow: auto; /* Hide the overflow content */
+            text-overflow: ellipsis; /* Display ellipsis (...) when content overflows */
+            white-space: nowrap; /* Prevent wrapping */
+            margin: 6px;
+            padding-right: 6px;
+            margin: auto auto;
+        }
+
+        .description-box {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3; /* Number of lines to show */
+            max-height: calc(1.3em * 3); /* Adjust based on line height and number of lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        a {
+            color:rgb(217, 178, 243);
+        }
+        .inline-button-container {
+            width: 200px;
+            text-align: center;
+        }
+        form {
+            margin: auto auto;
+        }
+        .vote-button {
+            display: inline-block;
+            margin: auto auto;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>AI Web Tools</h1>
+    <ul>
+        {% for link in links %}
+        <li>
+            <span>
+                <a href="{{ link.url }}">{{ link.name }}</a>
+            </span>
+            <span>
+                {{ link.date_added }}
+            </span>
+            <span>
+                Score: {{ link.ranking }}
+            </span>
+            <div class="description-box">
+                {{ link.description }}
+            </div>
+            <br>
+            <form action="{{ '/vote/'+link.id }}" method="post">
+                <div class="inline-button-container">
+                    <button type="submit" name="vote" value="up" class="vote-button">👍🏿 Upvote</button>
+                    <button type="submit" name="vote" value="down" class="vote-button">👎🏿 Downvote</button>    
+                </div>
+            </form>
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+</body>
+</html>
